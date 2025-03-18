@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Created with iSpring -->
+<html style="background-color:#dcdee0;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <title>Presentación con AR.js</title>
+    <link rel="apple-touch-icon-precomposed" href="data/apple-touch-icon.png"/>
+    <link rel="shortcut icon" type="image/ico" href="data/favicon.ico"/>
+    
+    <!-- Cargar A-Frame y AR.js -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body>
+    <div id="preloader"></div>
+    <script src="data/browsersupport.js?22061B19"></script>
+    <script src="data/player.js?22061B19"></script>
+    <div id="content"></div>
+    
+    <!-- Escena AR.js con un marcador que carga la página de iSpring -->
+    <a-scene embedded arjs>
+        <a-marker preset="hiro" id="markerHiro">
+            <a-plane position="0 0 0" width="1" height="1" color="#FFFFFF"></a-plane>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Contenedor del iframe (oculto hasta que se detecte el marcador) -->
+    <div id="iframeContainer" style="display: none; position: fixed; top: 10%; left: 10%; width: 80%; height: 80%; background: white; border: 2px solid black;">
+        <iframe id="iframeAR" src="data/index.html" width="100%" height="100%"></iframe>
+    </div>
+
+    <script>
+        document.querySelector("#markerHiro").addEventListener("markerFound", function() {
+            document.getElementById("iframeContainer").style.display = "block";
+        });
+    </script>
+</body>
+</html>
